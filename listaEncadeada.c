@@ -17,16 +17,21 @@ typedef struct list
 List *createList();
 void push(List *list, int data);
 void printList(List *list);
+int isEmptyList(List *list);
 
 int main()
 {
     List *lista = createList();
 
-    push(lista, 5);
-    push(lista, 2);
-    push(lista, 3);
-    push(lista, 1);
-    printList(lista);
+    if (isEmptyList(lista))
+    {
+        printf("Lista vazia");
+    }
+    else
+    {
+        printf("Lista com elementos");
+    }
+    return 0;
 }
 
 List *createList()
@@ -77,4 +82,12 @@ void printList(List *list)
         printf("%d -", pointer->data);
         pointer = pointer->before;
     }
+}
+
+int isEmptyList(List *list)
+{
+    if (list->head == NULL)
+        return 1;
+    else
+        return 0;
 }
