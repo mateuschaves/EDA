@@ -23,6 +23,11 @@ int main()
 {
     List *lista = createList();
 
+    push(lista, 2);
+    push(lista, 1);
+    push(lista, 0);
+    push(lista, 4);
+    printList(lista);
     if (isEmptyList(lista))
     {
         printf("Lista vazia");
@@ -48,12 +53,41 @@ void push(List *list, int data)
 {
     Node *node = (Node *)malloc(sizeof(Node));
     node->data = data;
-    node->next = list->head;
-    node->before = NULL;
-    if (list->head != NULL)
-        list->head->before = node;
-    list->head = node;
-    list->size++;
+    if (isEmptyList(list))
+    {
+        node->next = list->head;
+        node->before = NULL;
+        if (list->head != NULL)
+            list->head->before = node;
+        list->head = node;
+        list->size++;
+    }
+    else
+    {
+        Node *before, *current = list->head;
+        while (current != NULL && current->data < data)
+        {
+            before = current;
+            current = current->next;
+        }
+        if (current == list->head)
+        {
+            node->next = list->head;
+            node->before = NULL;
+            if (list->head != NULL)
+                list->head->before = node;
+            list->head = node;
+            list->size++;
+        }
+        else
+        {
+            node->next = before->next;
+            node->before = before;
+            before->next = node;
+            if (current != NULL)
+                current->before = node;
+        }
+    }
 }
 
 void printList(List *list)
