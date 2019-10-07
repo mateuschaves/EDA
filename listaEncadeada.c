@@ -2,16 +2,10 @@
 #include <stdio.h>
 #include <malloc.h>
 
-typedef struct dataNode
-{
-    int id;
-} dataNode;
-
 typedef struct node
 {
-    dataNode data;
-    struct node *next;
-
+    int data;
+    struct node *next, *before;
 } Node;
 
 typedef struct list
@@ -21,18 +15,15 @@ typedef struct list
 } List;
 
 List *createList();
-void push(List *list, dataNode data);
+void push(List *list, int data);
 
 int main()
 {
     List *lista = createList();
 
-    dataNode data;
-    data.id = 5;
+    push(lista, 5);
 
-    push(lista, data);
-
-    printf("%d", lista->head->data.id);
+    printf("%d", lista->head->data);
 }
 
 List *createList()
@@ -45,7 +36,7 @@ List *createList()
     return list;
 }
 
-void push(List *list, dataNode data)
+void push(List *list, int data)
 {
     Node *node = (Node *)malloc(sizeof(Node));
     node->data = data;
