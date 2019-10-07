@@ -21,6 +21,7 @@ typedef struct list
 } List;
 
 List *createList();
+void push(List *list, dataNode data);
 
 int main()
 {
@@ -29,7 +30,9 @@ int main()
     dataNode data;
     data.id = 5;
 
-    printf("%d", lista->size);
+    push(lista, data);
+
+    printf("%d", lista->head->data.id);
 }
 
 List *createList()
@@ -40,4 +43,13 @@ List *createList()
     list->head = NULL;
 
     return list;
+}
+
+void push(List *list, dataNode data)
+{
+    Node *node = (Node *)malloc(sizeof(Node));
+    node->data = data;
+    node->next = list->head;
+    list->head = node;
+    list->size++;
 }
