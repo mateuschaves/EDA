@@ -2,8 +2,6 @@
 #include <stdio.h>
 #include <malloc.h>
 
-// First in First Out
-
 typedef struct node
 {
     int data;
@@ -29,10 +27,6 @@ int main()
     push(lista, 3);
     push(lista, 1);
     printList(lista);
-    // push(lista, 2);
-    // printf("Elemento: %d\n", lista->head->data);
-    // printf("Proximo: %d\n", lista->head->next->data);
-    // printf("Anterior: %d", lista->head->before->data);
 }
 
 List *createList()
@@ -44,13 +38,6 @@ List *createList()
 
     return list;
 }
-
-/*
-            1 - next = null / before = null
-
-            2 - next = 0 / 
-
-*/
 
 void push(List *list, int data)
 {
