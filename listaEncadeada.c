@@ -16,10 +16,11 @@ typedef struct list
 
 List *createList();
 int push(List *list, int data);
-void printList(List *list);
+int printList(List *list);
 int isEmptyList(List *list);
 int search(List *list, int data);
 int deleteNode(List *list, int data);
+int deleteList(List *list);
 
 int main()
 {
@@ -28,18 +29,9 @@ int main()
     push(lista, 2);
     push(lista, 1);
     push(lista, 0);
-    printList(lista);
     deleteNode(lista, 1);
+    deleteList(lista);
     printList(lista);
-
-    if (isEmptyList(lista))
-    {
-        printf("Lista vazia");
-    }
-    else
-    {
-        printf("Lista com elementos");
-    }
     return 0;
 }
 
@@ -97,8 +89,13 @@ int push(List *list, int data)
     return 1;
 }
 
-void printList(List *list)
+int printList(List *list)
 {
+    if (isEmptyList(list))
+    {
+        printf("Lista vazia");
+        return 0;
+    }
     Node *pointer = list->head;
     while (pointer != NULL)
     {
@@ -124,6 +121,7 @@ void printList(List *list)
         pointer = pointer->before;
     }
     printf("\n");
+    return 1;
 }
 
 int isEmptyList(List *list)
@@ -166,4 +164,25 @@ int deleteNode(List *list, int data)
         }
         node = node->next;
     }
+}
+
+int deleteList(List *list)
+{
+    int nodeCount = 0;
+    Node *node = (Node *)malloc(sizeof(Node));
+    if (isEmptyList(list))
+    {
+        free(list);
+        return nodeCount;
+    }
+    while (list->head != NULL)
+    {
+        node = list->head;
+        list->head = list->head->before;
+        free(node);
+        nodeCount++;
+    }
+    free(list->head);
+    nodeCount++;
+    return nodeCount;
 }
